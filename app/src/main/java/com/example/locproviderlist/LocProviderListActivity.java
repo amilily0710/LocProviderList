@@ -21,29 +21,31 @@ public class LocProviderListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mTextView=findViewById(R.id.txtOutput);
-        locMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
         mButton=findViewById(R.id.button);
 
-        locProviders = locMgr.getAllProviders();
+      // locProviders = locMgr.getAllProviders();
+      // locMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         mButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                locMgr = (LocationManager) getSystemService(LOCATION_SERVICE); // new LocationManager() 만드는거
+                locProviders = locMgr.getAllProviders();
+                //String s = "";
 
-                String s = "";
-                for(int i = 0; i < locProviders.size(); i++){
-                    s += "Loc. Provider : " + locProviders.get(i) + "\n"
-                            + "Status : " + locMgr.isProviderEnabled(locProviders.get(i)) + "\n\n";
+                for (String location: locProviders){
+                    mTextView.append("Loc. Provider: " + locProviders.size() + "\n");
+                    mTextView.append("Status: " + locMgr.isProviderEnabled(String.valueOf(location)) + "\n\n");
                 }
-                mTextView.setText(s);
+/*
+                for (int i = 0; i < locProviders.size(); i++) {
+                    s += "Loc. Provider: " + locProviders.get(i) + "\n"
+                            + "Status: " + locMgr.isProviderEnabled(locProviders.get(i)) + "\n\n";
+
+                    mtextView.setText(s);
+                }*/
             }
         });
-
-
-
-
-
-
     }
 }
